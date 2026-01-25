@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Reset Box - Fase 1 y 2</title>
+    <style>
+        :root {
+            --verde-oscuro: #2d5a27;
+            --verde-claro: #81b622;
+            --crema: #fdfaf5;
+            --tierra: #8b5a2b;
+            --celeste: #7fb3b8;
+        }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; margin: 0; padding: 10px; }
+        .header { text-align: center; padding: 30px 10px; background: white; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-bottom: 4px solid var(--verde-claro); }
+        .logo { font-size: 2.2rem; font-weight: bold; color: var(--verde-oscuro); margin: 0; }
+        .logo span { color: var(--verde-claro); }
+        .subtitle { color: var(--celeste); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; }
+        
+        .container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+        .box-card { background: white; border-radius: 15px; width: 340px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); overflow: hidden; border-top: 6px solid var(--verde-oscuro); display: flex; flex-direction: column; }
+        
+        .box-header { padding: 15px; text-align: center; }
+        .box-header h2 { margin: 5px 0; font-size: 1.1rem; color: var(--tierra); min-height: 44px; display: flex; align-items: center; justify-content: center; }
+        .badge { background: var(--verde-oscuro); color: white; padding: 3px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; }
+        .badge-f2 { background: var(--tierra); }
+        
+        .section-title { background: var(--crema); padding: 5px 15px; font-size: 0.7rem; font-weight: bold; color: var(--verde-oscuro); text-transform: uppercase; border-bottom: 1px solid #eee; }
+        
+        .product-list { padding: 10px 15px; font-size: 0.8rem; flex-grow: 1; }
+        .product-item { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #f9f9f9; }
+        .p-name { color: #555; }
+        .p-price { font-weight: 600; color: #333; }
+        
+        .box-footer { background: #fff; padding: 15px; border-top: 2px solid var(--crema); text-align: center; }
+        .total-price { font-size: 1.5rem; color: var(--verde-oscuro); font-weight: bold; display: block; }
+        .label { font-size: 0.7rem; color: #888; text-transform: uppercase; margin-bottom: 2px; display: block; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="subtitle">Salud y Nutrición</div>
+        <div class="logo">RESET <span>BOX</span></div>
+        <p style="color: #666; font-size: 0.9rem;">Packs de alimentación inteligente para cada etapa</p>
+    </div>
+
+    <div class="container">
+        <div class="box-card">
+            <div class="box-header">
+                <span class="badge">FASE 1</span>
+                <h2>1. Inicial Sin Síntomas</h2>
+            </div>
+            <div class="section-title">Esenciales Reset (Base)</div>
+            <div class="product-list">
+                <div class="product-item"><span class="p-name">Oliva, Ghee, Coco Rallado</span><span class="p-price">$35.845</span></div>
+                <div class="product-item"><span class="p-name">Mermeladas, Stevia, Cacao</span><span class="p-price">$21.235</span></div>
+                <div class="product-item"><span class="p-name">Fideos Arroz, Pasta Maní</span><span class="p-price">$9.634</span></div>
+                <div class="section-title" style="margin:10px -15px 5px -15px">Específicos Fase 1</div>
+                <div class="product-item"><span class="p-name">Arroz Yamaní (5kg)</span><span class="p-price">$12.333</span></div>
+                <div class="product-item"><span class="p-name">Mix Semillas y Frutos Secos</span><span class="p-price">$8.853</span></div>
+                <div class="product-item"><span class="p-name">Citrato de Magnesio</span><span class="p-price">$4.480</span></div>
+            </div>
+            <div class="box-footer">
+                <span class="label">Costo Mayorista</span>
+                <span class="total-price">$137.996</span>
+            </div>
+        </div>
+
+        <div class="box-card" style="border-top-color: var(--tierra);">
+            <div class="box-header">
+                <span class="badge badge-f2">FASE 2</span>
+                <h2>4. Reinc. Sin Síntomas</h2>
+            </div>
+            <div class="section-title">Esenciales Reset (Base)</div>
+            <div class="product-list">
+                <div class="product-item"><span class="p-name">Kit Completo Despensa B15</span><span class="p-price">$115.720</span></div>
+                <div class="section-title" style="margin:10px -15px 5px -15px">Específicos Reincorporación</div>
+                <div class="product-item"><span class="p-name">Lentejas y Garbanzos (1kg)</span><span class="p-price">$6.243</span></div>
+                <div class="product-item"><span class="p-name">Pasta de Lentejas (Sin TACC)</span><span class="p-price">$4.737</span></div>
+                <div class="product-item"><span class="p-name">Harina de Almendras (Fracc.)</span><span class="p-price">$4.799</span></div>
+                <div class="product-item"><span class="p-name">Harina de Garbanzos</span><span class="p-price">$3.221</span></div>
+            </div>
+            <div class="box-footer">
+                <span class="label">Costo Mayorista</span>
+                <span class="total-price">$145.720</span>
+            </div>
+        </div>
+
+        <div class="box-card" style="border-top-color: var(--celeste);">
+            <div class="box-header">
+                <span class="badge">FASE 1 - DIGESTIVA</span>
+                <h2>2. Inicial Con Síntomas</h2>
+            </div>
+            <div class="section-title">Esenciales Reset (Base)</div>
+            <div class="product-list">
+                <div class="product-item"><span class="p-name">Kit Completo Despensa B15</span><span class="p-price">$118.585</span></div>
+                <div class="section-title" style="margin:10px -15px 5px -15px">Específicos Low FODMAP</div>
+                <div class="product-item"><span class="p-name">Semillas de Zapallo (1kg)</span><span class="p-price">$16.073</span></div>
+                <div class="product-item"><span class="p-name">Harina Arroz Yamaní</span><span class="p-price">$1.804</span></div>
+                <div class="product-item"><span class="p-name">Cúrcuma + Jengibre</span><span class="p-price">$7.450</span></div>
+                <div class="product-item"><span class="p-name">Magnesio Especial</span><span class="p-price">$10.513</span></div>
+            </div>
+            <div class="box-footer">
+                <span class="label">Costo Mayorista</span>
+                <span class="total-price">$154.425</span>
+            </div>
+        </div>
+
+        <div class="box-card" style="border-top-color: var(--tierra);">
+            <div class="box-header">
+                <span class="badge badge-f2">FASE 2 - DIGESTIVA</span>
+                <h2>5. Reinc. Con Síntomas</h2>
+            </div>
+            <div class="section-title">Esenciales Reset (Base)</div>
+            <div class="product-list">
+                <div class="product-item"><span class="p-name">Kit Completo Despensa B15</span><span class="p-price">$123.450</span></div>
+                <div class="section-title" style="margin:10px -15px 5px -15px">Específicos Reincorporación</div>
+                <div class="product-item"><span class="p-name">Harina de Sorgo (500g)</span><span class="p-price">$2.890</span></div>
+                <div class="product-item"><span class="p-name">Trigo Sarraceno (1kg)</span><span class="p-price">$12.550</span></div>
+                <div class="product-item"><span class="p-name">Mix Semillas Peladas</span><span class="p-price">$8.670</span></div>
+                <div class="product-item"><span class="p-name">Suplemento Digestivo</span><span class="p-price">$7.200</span></div>
+            </div>
+            <div class="box-footer">
+                <span class="label">Costo Mayorista</span>
+                <span class="total-price">$154.760</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div style="text-align: center; margin-top: 30px; padding: 20px; color: #666; font-size: 0.8rem;">
+        <p>Precios actualizados según Distribuidora Cabane al 23/01/2026</p>
+    </div>
+
+</body>
+</html>

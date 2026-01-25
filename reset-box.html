@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Box - Salud y Nutrición</title>
+    <style>
+        :root {
+            --verde-oscuro: #2d5a27;
+            --verde-claro: #81b622;
+            --crema: #fdfaf5;
+            --tierra: #8b5a2b;
+            --celeste: #7fb3b8;
+        }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; margin: 0; padding: 10px; }
+        .header { text-align: center; padding: 30px 10px; background: white; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .logo { font-size: 2.2rem; font-weight: bold; color: var(--verde-oscuro); margin: 0; }
+        .logo span { color: var(--verde-claro); }
+        .subtitle { color: var(--celeste); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; }
+        
+        .container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+        .box-card { background: white; border-radius: 15px; width: 360px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); overflow: hidden; border-top: 6px solid var(--verde-oscuro); }
+        
+        .box-header { padding: 15px; text-align: center; background: #fff; }
+        .box-header h2 { margin: 5px 0; font-size: 1.2rem; color: var(--tierra); }
+        .badge { background: var(--celeste); color: white; padding: 3px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; }
+        
+        .section-title { background: var(--crema); padding: 5px 15px; font-size: 0.75rem; font-weight: bold; color: var(--verde-oscuro); text-transform: uppercase; border-bottom: 1px solid #eee; border-top: 1px solid #eee; }
+        
+        .product-list { padding: 10px 15px; font-size: 0.85rem; }
+        .product-item { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #f9f9f9; }
+        .p-name { color: #555; }
+        .p-price { font-weight: 600; color: #333; }
+        
+        .box-footer { background: white; padding: 15px; border-top: 2px solid var(--crema); text-align: center; }
+        .total-price { font-size: 1.6rem; color: var(--verde-oscuro); font-weight: bold; display: block; }
+        .label { font-size: 0.75rem; color: #888; text-transform: uppercase; margin-bottom: 5px; display: block; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="subtitle">Salud y Nutrición</div>
+        <div class="logo">RESET <span>BOX</span></div>
+        <p style="color: #666; font-size: 0.9rem;">Tu camino hacia el bienestar en 15 días</p>
+    </div>
+
+    <div class="container">
+        <div class="box-card">
+            <div class="box-header">
+                <span class="badge">FASE 1 - INICIAL</span>
+                <h2>1. Pack Sin Síntomas</h2>
+            </div>
+            
+            <div class="section-title">Esenciales Incluidos (Base)</div>
+            <div class="product-list">
+                <div class="product-item"><span class="p-name">Oliva (250ml) + Aceite Coco</span><span class="p-price">$23.674</span></div>
+                <div class="product-item"><span class="p-name">Ghee + Coco Rallado (1kg)</span><span class="p-price">$24.008</span></div>
+                <div class="product-item"><span class="p-name">Pasta de Maní + Aceitunas</span><span class="p-price">$4.817</span></div>
+                <div class="product-item"><span class="p-name">Mermeladas Stevia (x2) + Stevia Líquida</span><span class="p-price">$12.741</span></div>
+                <div class="product-item"><span class="p-name">Fideos Arroz + Polvo Hornear + Cacao</span><span class="p-price">$48.233</span></div>
+                <div class="product-item"><span class="p-name">Sal Marina + Vinagre Manzana Org.</span><span class="p-price">$5.112</span></div>
+            </div>
+
+            <div class="section-title">Específicos Fase 1</div>
+            <div class="product-list">
+                <div class="product-item"><span class="p-name">Arroz Yamaní (5kg)</span><span class="p-price">$12.333</span></div>
+                <div class="product-item"><span class="p-name">Lino + Chía + Mix Frutos Secos</span><span class="p-price">$8.853</span></div>
+                <div class="product-item"><span class="p-name">Magnesio (Citrato 30 caps)</span><span class="p-price">$4.480</span></div>
+            </div>
+
+            <div class="box-footer">
+                <span class="label">Precio Lanzamiento</span>
+                <span class="total-price">$137.996</span>
+            </div>
+        </div>
+
+        <div class="box-card" style="border-top-color: var(--celeste);">
+            <div class="box-header">
+                <span class="badge">FASE 1 - DIGESTIVA</span>
+                <h2>2. Pack Con Síntomas</h2>
+            </div>
+            
+            <div class="section-title">Esenciales Incluidos (Base)</div>
+            <div class="product-list">
+                <div class="product-item"><span class="p-name">Base completa (13 productos)</span><span class="p-price">$118.585</span></div>
+            </div>
+
+            <div class="section-title">Específicos Low FODMAP</div>
+            <div class="product-list">
+                <div class="product-item"><span class="p-name">Semillas de Zapallo (1kg)</span><span class="p-price">$16.073</span></div>
+                <div class="product-item"><span class="p-name">Harina de Arroz Yamaní</span><span class="p-price">$1.804</span></div>
+                <div class="product-item"><span class="p-name">Cúrcuma + Jengibre Antiinflam.</span><span class="p-price">$7.450</span></div>
+                <div class="product-item"><span class="p-name">Chía + Magnesio</span><span class="p-price">$10.513</span></div>
+            </div>
+
+            <div class="box-footer">
+                <span class="label">Precio Lanzamiento</span>
+                <span class="total-price">$154.425</span>
+            </div>
+        </div>
+
+        <div class="box-card" style="border-top-color: var(--verde-claro);">
+            <div class="box-header">
+                <span class="badge">VEGANA - FASE 1</span>
+                <h2>3. Pack Vegano Inicial</h2>
+            </div>
+            
+            <div class="section-title">Esenciales Veganos</div>
+            <div class="product-list">
+                <div class="product-item"><span class="p-name">Base completa (Sin Ghee)</span><span class="p-price">$108.202</span></div>
+            </div>
+
+            <div class="section-title">Proteína y Nutrición Veg</div>
+            <div class="product-list">
+                <div class="product-item"><span class="p-name">Tofu Orgánico Soyana (x3)</span><span class="p-price">$23.131</span></div>
+                <div class="product-item"><span class="p-name">Quinoa Blanca (1kg)</span><span class="p-price">$9.833</span></div>
+                <div class="product-item"><span class="p-name">Vitamina B12 + Magnesio</span><span class="p-price">$11.252</span></div>
+            </div>
+
+            <div class="box-footer">
+                <span class="label">Precio Lanzamiento</span>
+                <span class="total-price">$139.211</span>
+            </div>
+        </div>
+    </div>
+    
+    <p style="text-align: center; color: #888; font-size: 0.8rem; margin-top: 30px;">
+        * Precios referenciales basados en costos mayoristas. Consultar stock disponible.
+    </p>
+
+</body>
+</html>
