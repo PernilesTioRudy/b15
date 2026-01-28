@@ -9,8 +9,12 @@ import { useAuth } from '../context/AuthContext';
 
 export default function Page() {
     const { user, openLogin } = useAuth();
+    // WhatsApp Configuration
+    const PHONE_NUMBER = "5492994520532";
+
+    // Main Consultation Button
     const whatsappMessage = "Hola! Estoy empezando el Programa B15 y necesito información sobre la Asesoría";
-    const whatsappLink = `https://wa.me/?text=${encodeURIComponent(whatsappMessage)}`;
+    const whatsappLink = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
 
     return (
         <main className={styles.container}>
@@ -51,8 +55,9 @@ export default function Page() {
                 <h2 className={styles.kitsTitle}>Kits Reset Box</h2>
                 <div className={styles.kitsGrid}>
                     {KITS.map((kit) => {
+                        // Kit Config
                         const kitOrderMessage = `Hola! Me interesa la ${kit.title} para mi proceso de Reset Box`;
-                        const kitWhatsappLink = `https://wa.me/?text=${encodeURIComponent(kitOrderMessage)}`;
+                        const kitWhatsappLink = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(kitOrderMessage)}`;
 
                         return (
                             <div key={kit.id} className={styles.kitCard}>

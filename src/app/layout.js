@@ -42,7 +42,7 @@ export default function RootLayout({ children }) {
                         borderTop: '1px solid #E0E0E0',
                         marginTop: 'auto'
                     }}>
-                        <p>© {new Date().getFullYear()} Reset Box - Nutrición y Salud</p>
+                        <p>© 2026 Reset Box - Nutrición y Salud</p>
                     </footer>
                 </AuthProvider>
             </body>

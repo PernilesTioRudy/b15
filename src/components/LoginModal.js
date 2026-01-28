@@ -75,8 +75,11 @@ export default function LoginModal() {
                 <h2 style={{ color: '#B59573', marginBottom: '0.5rem', fontSize: '1.5rem', fontWeight: 'bold' }}>
                     Acceso a Clientes
                 </h2>
-                <p style={{ color: '#3E2723', marginBottom: '2rem', fontSize: '0.9rem', lineHeight: '1.4' }}>
-                    Ingresá tus datos para ver la lista de precios exclusiva de Reset Box.
+                <p style={{ color: '#3E2723', marginBottom: '1rem', fontSize: '0.9rem', lineHeight: '1.4' }}>
+                    Unite a la comunidad de alimentación consciente de Reset Box.
+                </p>
+                <p style={{ color: '#3E2723', marginBottom: '2rem', fontSize: '0.9rem', lineHeight: '1.4', opacity: 0.8 }}>
+                    Ingresá tus datos para ver la lista de precios exclusiva.
                 </p>
 
                 <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
