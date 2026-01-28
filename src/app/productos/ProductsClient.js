@@ -3,11 +3,16 @@
 import React, { useState } from 'react';
 import styles from './products.module.css';
 import { useAuth } from '../../context/AuthContext';
-import { Lock } from 'lucide-react';
+import { useCart } from '../../context/CartContext';
+import { Lock, ShoppingCart, Plus, Minus } from 'lucide-react';
 
 export default function ProductsClient({ categorizedProducts }) {
     const [searchTerm, setSearchTerm] = useState('');
     const { user, openLogin } = useAuth();
+    const { addToCart, updateQuantity, cartItems } = useCart();
+
+    // Helper to check cart status
+    const getCartItem = (code) => cartItems.find(item => item.id === code);
 
     // Filter products
     const filteredCategories = categorizedProducts.map(category => ({
@@ -26,11 +31,11 @@ export default function ProductsClient({ categorizedProducts }) {
                 {user ? (
                     <div style={{ marginBottom: '1.5rem', padding: '1rem', backgroundColor: '#F0EAE4', borderRadius: '8px', color: '#3E2723', border: '1px solid #B59573' }}>
                         <strong>¡Hola {user.name}!</strong><br />
-                        Ya podés ver todos los precios exclusivos de Reset Box.
+                        Ya podés agregar productos a tu pedido.
                     </div>
                 ) : (
                     <div style={{ marginBottom: '1.5rem', color: '#3E2723', opacity: 0.8, fontSize: '0.9rem' }}>
-                        Inicia sesión para ver los precios mayoristas.
+                        Inicia sesión para ver los precios y armar tu pedido.
                     </div>
                 )}
 
@@ -58,36 +63,86 @@ export default function ProductsClient({ categorizedProducts }) {
                                     <tr>
                                         <th>Código</th>
                                         <th>Descripción</th>
-                                        <th style={{ textAlign: 'right' }}>Precio</th>
+                                        <th style={{ textAlign: 'right' }}>Precio / Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {category.items.map((product, pIndex) => (
-                                        <tr key={pIndex} className={styles.row}>
-                                            <td className={styles.codeCell}>
-                                                {product.code}
-                                            </td>
-                                            <td>
-                                                {product.description}
-                                            </td>
-                                            <td style={{ textAlign: 'right', minWidth: '120px' }}>
-                                                {user ? (
-                                                    <span style={{ fontWeight: 'bold', color: '#B59573', fontSize: '1.05rem' }}>
-                                                        {product.price || '-'}
-                                                    </span>
-                                                ) : (
-                                                    <button
-                                                        className={styles.priceButton}
-                                                        onClick={openLogin}
-                                                        title="Ver precio"
-                                                    >
-                                                        <Lock size={14} style={{ display: 'inline', marginRight: '4px', verticalAlign: 'middle' }} />
-                                                        <span style={{ verticalAlign: 'middle' }}>Ver Precio</span>
-                                                    </button>
-                                                )}
-                                            </td>
-                                        </tr>
-                                    ))}
+                                    {category.items.map((product, pIndex) => {
+                                        const cartItem = getCartItem(product.code);
+                                        // Parse price for cart logic (remove $ and points)
+                                        const priceValue = product.price
+                                            ? parseFloat(product.price.replace('$ ', '').replace(/\./g, ''))
+                                            : 0;
+
+                                        return (
+                                            <tr key={pIndex} className={styles.row}>
+                                                <td className={styles.codeCell}>
+                                                    {product.code}
+                                                </td>
+                                                <td>
+                                                    {product.description}
+                                                </td>
+                                                <td style={{ textAlign: 'right', minWidth: '160px' }}>
+                                                    {user ? (
+                                                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.5rem' }}>
+                                                            <span style={{ fontWeight: 'bold', color: '#B59573', fontSize: '1.05rem' }}>
+                                                                {product.price || '-'}
+                                                            </span>
+
+                                                            {priceValue > 0 && (
+                                                                cartItem ? (
+                                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', backgroundColor: '#F9F7F2', borderRadius: '4px', border: '1px solid #B59573' }}>
+                                                                        <button
+                                                                            onClick={() => updateQuantity(product.code, -1)}
+                                                                            style={{ padding: '4px 8px', borderRight: '1px solid #ddd', background: 'none', cursor: 'pointer', color: '#3E2723' }}
+                                                                        ><Minus size={14} /></button>
+                                                                        <span style={{ fontSize: '0.9rem', fontWeight: 'bold', minWidth: '20px', textAlign: 'center' }}>{cartItem.quantity}</span>
+                                                                        <button
+                                                                            onClick={() => updateQuantity(product.code, 1)}
+                                                                            style={{ padding: '4px 8px', borderLeft: '1px solid #ddd', background: 'none', cursor: 'pointer', color: '#3E2723' }}
+                                                                        ><Plus size={14} /></button>
+                                                                    </div>
+                                                                ) : (
+                                                                    <button
+                                                                        onClick={() => addToCart({
+                                                                            id: product.code,
+                                                                            name: product.description,
+                                                                            price: priceValue,
+                                                                            type: 'product'
+                                                                        })}
+                                                                        style={{
+                                                                            backgroundColor: '#B59573',
+                                                                            color: 'white',
+                                                                            border: 'none',
+                                                                            borderRadius: '4px',
+                                                                            padding: '0.4rem 0.8rem',
+                                                                            cursor: 'pointer',
+                                                                            fontSize: '0.85rem',
+                                                                            display: 'flex',
+                                                                            alignItems: 'center',
+                                                                            gap: '4px'
+                                                                        }}
+                                                                    >
+                                                                        <ShoppingCart size={14} />
+                                                                        Agregar
+                                                                    </button>
+                                                                )
+                                                            )}
+                                                        </div>
+                                                    ) : (
+                                                        <button
+                                                            className={styles.priceButton}
+                                                            onClick={openLogin}
+                                                            title="Ver precio"
+                                                        >
+                                                            <Lock size={14} style={{ display: 'inline', marginRight: '4px', verticalAlign: 'middle' }} />
+                                                            <span style={{ verticalAlign: 'middle' }}>Ver Precio</span>
+                                                        </button>
+                                                    )}
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
                                 </tbody>
                             </table>
                         </div>

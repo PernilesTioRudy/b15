@@ -10,40 +10,50 @@ import { Inter } from 'next/font/google'; // Added Inter import
 
 const inter = Inter({ subsets: ['latin'] }); // Initialized Inter font
 
+import { CartProvider } from '../context/CartContext';
+import CartDrawer from '../components/CartDrawer';
+import CartFloatingBar from '../components/CartFloatingBar';
+
 export default function RootLayout({ children }) {
     return (
         <html lang="es">
             <body className={inter.className} style={{ backgroundColor: '#F9F7F2', minHeight: '100vh', margin: 0, color: '#3E2723' }}>
                 <AuthProvider>
-                    <LoginModal />
+                    <CartProvider>
+                        <LoginModal />
+                        <CartDrawer />
 
-                    {/* Header / Navbar */}
-                    <header style={{
-                        backgroundColor: '#B59573',
-                        padding: '1rem',
-                        textAlign: 'center',
-                        boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
-                    }}>
-                        <nav style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <Link href="/" style={{ color: 'white', textDecoration: 'none', fontWeight: 'bold', fontSize: '1.2rem', letterSpacing: '1px' }}>
-                                RESET BOX
-                            </Link>
-                        </nav>
-                    </header>
+                        {/* Header / Navbar */}
+                        <header style={{
+                            backgroundColor: '#B59573',
+                            padding: '1rem',
+                            textAlign: 'center',
+                            boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+                        }}>
+                            <nav style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <Link href="/" style={{ color: 'white', textDecoration: 'none', fontWeight: 'bold', fontSize: '1.2rem', letterSpacing: '1px' }}>
+                                    RESET BOX
+                                </Link>
+                            </nav>
+                        </header>
 
-                    {children}
+                        {children}
 
-                    <footer style={{
-                        textAlign: 'center',
-                        padding: '2rem',
-                        color: '#3E2723',
-                        opacity: 0.8,
-                        fontSize: '0.9rem',
-                        borderTop: '1px solid #E0E0E0',
-                        marginTop: 'auto'
-                    }}>
-                        <p>© 2026 Reset Box - Nutrición y Salud</p>
-                    </footer>
+                        <CartFloatingBar />
+
+                        <footer style={{
+                            textAlign: 'center',
+                            padding: '2rem',
+                            paddingBottom: '6rem', // Space for floating bar
+                            color: '#3E2723',
+                            opacity: 0.8,
+                            fontSize: '0.9rem',
+                            borderTop: '1px solid #E0E0E0',
+                            marginTop: 'auto'
+                        }}>
+                            <p>© 2026 Reset Box - Nutrición y Salud</p>
+                        </footer>
+                    </CartProvider>
                 </AuthProvider>
             </body>
         </html>
