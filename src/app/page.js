@@ -4,17 +4,23 @@ import styles from './home.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
 import { KITS } from '../data/kits';
-import { Package, Truck, Lock } from 'lucide-react';
+import { Package, Truck, Lock, ShoppingCart, Plus, Minus } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
 
 export default function Page() {
     const { user, openLogin } = useAuth();
+    const { addToCart, updateQuantity, cartItems } = useCart();
+
     // WhatsApp Configuration
     const PHONE_NUMBER = "5492994520532";
 
     // Main Consultation Button
     const whatsappMessage = "Hola! Estoy empezando el Programa B15 y necesito información sobre la Asesoría";
     const whatsappLink = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
+
+    // Helper to check cart status for Kits
+    const getCartItem = (id) => cartItems.find(item => item.id === id);
 
     return (
         <main className={styles.container}>
@@ -55,9 +61,7 @@ export default function Page() {
                 <h2 className={styles.kitsTitle}>Kits Reset Box</h2>
                 <div className={styles.kitsGrid}>
                     {KITS.map((kit) => {
-                        // Kit Config
-                        const kitOrderMessage = `Hola! Me interesa la ${kit.title} para mi proceso de Reset Box`;
-                        const kitWhatsappLink = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(kitOrderMessage)}`;
+                        const cartItem = getCartItem(kit.id);
 
                         return (
                             <div key={kit.id} className={styles.kitCard}>
@@ -106,17 +110,35 @@ export default function Page() {
 
                                 {/* Actions */}
                                 <div className={styles.kitActions}>
-                                    <a
-                                        href={kitWhatsappLink}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className={styles.kitButtonPrimary}
-                                    >
-                                        <Package size={18} />
-                                        Pedir Kit
-                                    </a>
-
-                                    {!user && (
+                                    {user ? (
+                                        cartItem ? (
+                                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', width: '100%', marginBottom: '0.5rem' }}>
+                                                <button
+                                                    onClick={() => updateQuantity(kit.id, -1)}
+                                                    style={{ padding: '0.5rem', backgroundColor: '#F9F7F2', borderRadius: '4px', border: '1px solid #B59573', color: '#3E2723', cursor: 'pointer' }}
+                                                ><Minus size={20} /></button>
+                                                <span style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>{cartItem.quantity}</span>
+                                                <button
+                                                    onClick={() => updateQuantity(kit.id, 1)}
+                                                    style={{ padding: '0.5rem', backgroundColor: '#F9F7F2', borderRadius: '4px', border: '1px solid #B59573', color: '#3E2723', cursor: 'pointer' }}
+                                                ><Plus size={20} /></button>
+                                            </div>
+                                        ) : (
+                                            <button
+                                                onClick={() => addToCart({
+                                                    id: kit.id,
+                                                    name: `Kit ${kit.title}`,
+                                                    price: kit.price,
+                                                    type: 'kit'
+                                                })}
+                                                className={styles.kitButtonPrimary}
+                                                style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}
+                                            >
+                                                <ShoppingCart size={18} />
+                                                Agregar al Carrito
+                                            </button>
+                                        )
+                                    ) : (
                                         <button
                                             className={styles.kitButtonSecondary}
                                             onClick={openLogin}
