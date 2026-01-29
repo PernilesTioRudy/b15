@@ -86,9 +86,19 @@ export default function ProductsClient({ categorizedProducts }) {
 
                                     return (
                                         <div key={pIndex} className={styles.card}>
-                                            {/* Image Placeholder */}
-                                            <div className={styles.imagePlaceholder}>
-                                                <span style={{ opacity: 0.3, fontSize: '2rem' }}>🌿</span>
+                                            {/* Image or Placeholder */}
+                                            <div className={styles.imageContainer}>
+                                                {product.image ? (
+                                                    <img
+                                                        src={product.image}
+                                                        alt={product.description}
+                                                        className={styles.productImage}
+                                                    />
+                                                ) : (
+                                                    <div className={styles.imagePlaceholder}>
+                                                        <span style={{ opacity: 0.3, fontSize: '2rem' }}>🌿</span>
+                                                    </div>
+                                                )}
                                             </div>
 
                                             <div className={styles.cardContent}>

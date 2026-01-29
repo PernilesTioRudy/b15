@@ -4,35 +4,35 @@
         "name": "Doble X (Multivitamínico)",
         "description": "El suplemento más completo con vitaminas, minerales y fitonutrientes.",
         "price": 85000,
-        "image": null
+        "image": "/Doble X.png"
     },
     {
         "id": "nutri_2",
         "name": "Omega 3 Plus",
         "description": "Ácidos grasos esenciales para la salud cardiovascular y cerebral.",
         "price": 42000,
-        "image": null
+        "image": "/Omega 3.png"
     },
     {
         "id": "nutri_3",
         "name": "Proteína Vegetal en Polvo",
         "description": "Proteína 100% vegetal a base de soja, trigo y arvejas.",
         "price": 55000,
-        "image": null
+        "image": "/Proteina Vegetal.png"
     },
     {
         "id": "nutri_4",
         "name": "Vitamina C Plus de Acción Retardada",
         "description": "Refuerza tu sistema inmunológico durante todo el día.",
         "price": 32000,
-        "image": null
+        "image": "/Vitamina C Plus.png"
     },
     {
         "id": "nutri_5",
         "name": "Cal Mag D (Calcio, Magnesio y Vitamina D)",
         "description": "Para huesos fuertes y salud muscular.",
         "price": 28000,
-        "image": null
+        "image": "/Cal Mag D.png"
     },
     {
         "id": "nutri_6",
@@ -60,7 +60,7 @@
         "name": "Lecitina E",
         "description": "Antioxidante masticable con vitamina E y lecitina de soja.",
         "price": 22000,
-        "image": null
+        "image": "/Lecitina E.png"
     },
     {
         "id": "nutri_10",
