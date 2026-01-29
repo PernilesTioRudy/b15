@@ -102,6 +102,22 @@
   border-bottom: 1px solid #f0f0f0;
 }
 
+.imageContainer {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  /* Square */
+  overflow: hidden;
+  border-bottom: 1px solid #f0f0f0;
+  background-color: #F0EAE4;
+}
+
+.productImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 1rem;
+}
+
 .cardContent {
   padding: 1.5rem;
   display: flex;

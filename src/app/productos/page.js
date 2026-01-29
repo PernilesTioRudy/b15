@@ -33,7 +33,8 @@ export default function ProductsPage() {
         details: prod.description, // Store description to show
         price: `$ ${prod.price.toLocaleString('es-AR')}`,
         rawPrice: prod.price,
-        type: 'nutrilite'
+        type: 'nutrilite',
+        image: prod.image // CRITICAL: Pass the image path
     }));
 
     // 4. Parse & Map Cabane Items
