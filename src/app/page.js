@@ -65,6 +65,28 @@ export default function Page() {
 
                         return (
                             <div key={kit.id} className={styles.kitCard}>
+                                {/* Kit Image */}
+                                {kit.image && (
+                                    <div style={{
+                                        width: '100%',
+                                        aspectRatio: '1 / 1',
+                                        overflow: 'hidden',
+                                        borderRadius: '12px 12px 0 0',
+                                        backgroundColor: '#F0EAE4'
+                                    }}>
+                                        <img
+                                            src={kit.image}
+                                            alt={kit.title}
+                                            style={{
+                                                width: '100%',
+                                                height: '100%',
+                                                objectFit: 'contain',
+                                                padding: '1rem'
+                                            }}
+                                        />
+                                    </div>
+                                )}
+
                                 <h3 className={styles.kitHeader}>{kit.title}</h3>
                                 <p className={styles.kitProfile}>{kit.profile}</p>
 
