@@ -36,37 +36,23 @@
     },
     {
         "id": "nutri_6",
-        "name": "Concentrado de Frutas y Vegetales",
-        "description": "Fitonutrientes equivalentes a 5 porciones diarias.",
-        "price": 38000,
-        "image": null
-    },
-    {
-        "id": "nutri_7",
-        "name": "Ajo Concentrado",
-        "description": "Beneficios cardiovasculares sin el olor del ajo fresco.",
-        "price": 25000,
-        "image": null
-    },
-    {
-        "id": "nutri_8",
         "name": "Complejo B de Acción Dual",
         "description": "Energía y metabolismo óptimo por 8 horas.",
         "price": 29000,
-        "image": null
+        "image": "/Complejo B.png"
     },
     {
-        "id": "nutri_9",
+        "id": "nutri_7",
         "name": "Lecitina E",
         "description": "Antioxidante masticable con vitamina E y lecitina de soja.",
         "price": 22000,
         "image": "/Lecitina E.png"
     },
     {
-        "id": "nutri_10",
+        "id": "nutri_8",
         "name": "Phytopowder (Bebida en polvo)",
         "description": "Hidratación con electrolitos y vitaminas. Sabor Cereza/Naranja.",
         "price": 35000,
-        "image": null
+        "image": "/phytopowder.png"
     }
 ]
