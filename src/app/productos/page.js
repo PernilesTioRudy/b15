@@ -23,7 +23,8 @@ export default function ProductsPage() {
         price: `$ ${kit.price?.toLocaleString('es-AR')}`,
         rawPrice: kit.price,
         type: 'kit',
-        details: kit
+        details: kit,
+        image: kit.image // Pass kit image
     }));
 
     // 3. Populate Nutrilite

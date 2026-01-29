@@ -4,6 +4,7 @@ export const KITS = [
         title: "CAJA 1: Inicial - Sin Síntomas Digestivos (Fase 1)",
         profile: "Eliminación de inflamatorios con mayor libertad en harinas de semillas y frutos secos.",
         price: 215000,
+        image: "/Kit Caja 1 - Sin Sintomas Digestivos.png",
         base: [
             "Aceite de Oliva (Zuelo/Castell 250cm³)",
             "Aceite de Coco (Natural Seed)",
@@ -32,6 +33,7 @@ export const KITS = [
         title: "CAJA 2: Inicial - Con Síntomas Digestivos (Fase 1)",
         profile: "Protocolo Low FODMAP estricto para desinflamación rápida.",
         price: 228000,
+        image: "/Kit Caja 1 - Con Sintomas Digestivos.png",
         base: [
             "Aceite de Oliva (Zuelo/Castell 250cm³)",
             "Aceite de Coco (Natural Seed)",
@@ -61,6 +63,7 @@ export const KITS = [
         title: "CAJA 3: Inicial - Vegana (Fase 1)",
         profile: "100% vegetal, enfocada en proteínas aptas y densidad nutricional.",
         price: 235000,
+        image: "/Kit Caja 1 - Vegana.png",
         base: [
             "Extra Aceite de Oliva/Coco (Sustituye Ghee)",
             "Coco Rallado x 1kg (Alim del Plata)",
