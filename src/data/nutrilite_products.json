@@ -1,0 +1,72 @@
+[
+    {
+        "id": "nutri_1",
+        "name": "Doble X (Multivitamínico)",
+        "description": "El suplemento más completo con vitaminas, minerales y fitonutrientes.",
+        "price": 85000,
+        "image": null
+    },
+    {
+        "id": "nutri_2",
+        "name": "Omega 3 Plus",
+        "description": "Ácidos grasos esenciales para la salud cardiovascular y cerebral.",
+        "price": 42000,
+        "image": null
+    },
+    {
+        "id": "nutri_3",
+        "name": "Proteína Vegetal en Polvo",
+        "description": "Proteína 100% vegetal a base de soja, trigo y arvejas.",
+        "price": 55000,
+        "image": null
+    },
+    {
+        "id": "nutri_4",
+        "name": "Vitamina C Plus de Acción Retardada",
+        "description": "Refuerza tu sistema inmunológico durante todo el día.",
+        "price": 32000,
+        "image": null
+    },
+    {
+        "id": "nutri_5",
+        "name": "Cal Mag D (Calcio, Magnesio y Vitamina D)",
+        "description": "Para huesos fuertes y salud muscular.",
+        "price": 28000,
+        "image": null
+    },
+    {
+        "id": "nutri_6",
+        "name": "Concentrado de Frutas y Vegetales",
+        "description": "Fitonutrientes equivalentes a 5 porciones diarias.",
+        "price": 38000,
+        "image": null
+    },
+    {
+        "id": "nutri_7",
+        "name": "Ajo Concentrado",
+        "description": "Beneficios cardiovasculares sin el olor del ajo fresco.",
+        "price": 25000,
+        "image": null
+    },
+    {
+        "id": "nutri_8",
+        "name": "Complejo B de Acción Dual",
+        "description": "Energía y metabolismo óptimo por 8 horas.",
+        "price": 29000,
+        "image": null
+    },
+    {
+        "id": "nutri_9",
+        "name": "Lecitina E",
+        "description": "Antioxidante masticable con vitamina E y lecitina de soja.",
+        "price": 22000,
+        "image": null
+    },
+    {
+        "id": "nutri_10",
+        "name": "Phytopowder (Bebida en polvo)",
+        "description": "Hidratación con electrolitos y vitaminas. Sabor Cereza/Naranja.",
+        "price": 35000,
+        "image": null
+    }
+]

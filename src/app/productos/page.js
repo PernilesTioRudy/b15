@@ -1,79 +1,108 @@
 import productsData from '../../data/products.json';
+import nutriliteData from '../../data/nutrilite_products.json';
+import { KITS } from '../../data/kits';
 import ProductsClient from './ProductsClient';
 
 export default function ProductsPage() {
-    // Parse logic
-    const categorizedProducts = [];
-    let currentCategory = null;
+    // 1. Define Categories structure
+    const CATEGORIES = {
+        KITS: { name: "Kits de Reseteo B15", items: [] },
+        NUTRILITE: { name: "Suplementos Nutrilite (Amway)", items: [] },
+        DEPORTES: { name: "Suplementos Deportivos y Dietarios", items: [] },
+        FRUTOS: { name: "Frutos Secos y Mixes", items: [] },
+        ALMACEN: { name: "Almacén Natural", items: [] },
+        HARINAS: { name: "Harinas y Repostería Saludable", items: [] },
+        HIERBAS: { name: "Hierbas e Infusiones", items: [] },
+        OTROS: { name: "Otros Productos", items: [] } // Fallback
+    };
+
+    // 2. Populate Kits
+    CATEGORIES.KITS.items = KITS.map(kit => ({
+        code: kit.id,
+        description: `Kit ${kit.title}`,
+        price: `$ ${kit.price?.toLocaleString('es-AR')}`,
+        rawPrice: kit.price,
+        type: 'kit',
+        details: kit
+    }));
+
+    // 3. Populate Nutrilite
+    CATEGORIES.NUTRILITE.items = nutriliteData.map(prod => ({
+        code: prod.id,
+        description: prod.name,
+        details: prod.description, // Store description to show
+        price: `$ ${prod.price.toLocaleString('es-AR')}`,
+        rawPrice: prod.price,
+        type: 'nutrilite'
+    }));
+
+    // 4. Parse & Map Cabane Items
+    let currentRubro = "";
 
     productsData.forEach(row => {
-        const col1 = row["__EMPTY"]; // Often Code or "Rubro: ..." or "Fecha..."
-        const col2 = row["Lista de precios Distribuidora Cabane"]; // Description or "Linea: ..."
-        // const col3 = row["__EMPTY_1"]; // Alicuota
-        // const col4 = row["__EMPTY_2"]; // Price no IVA
-        // const col5 = row["__EMPTY_3"]; // Price with IVA
+        const col1 = row["__EMPTY"];
+        const col2 = row["Lista de precios Distribuidora Cabane"];
 
-        if (!col1 && !col2) return; // Empty row
+        if (!col1 && !col2) return;
 
         const col1Str = String(col1 || "").trim();
         const col2Str = String(col2 || "").trim();
 
-        // Check for Category (Rubro)
-        // Example: "-- RUBRO: ALIMENTOS --"
+        // Detect Rubro
         if (col1Str.startsWith("-- RUBRO:")) {
-            const categoryName = col1Str.replace("-- RUBRO:", "").replace("--", "").trim();
-            currentCategory = {
-                name: categoryName,
-                items: []
-            };
-            categorizedProducts.push(currentCategory);
+            currentRubro = col1Str.replace("-- RUBRO:", "").replace("--", "").trim().toUpperCase();
             return;
         }
 
-        // Check for "Linea" (Sub-category, treating as just data or separate header? User asked to group by Rubro. Linea seems to be inside Rubro)
-        // Example: "-- Línea: 123 LISTO --"
-        if (col2Str.startsWith("-- Línea:")) {
-            // Optional: We could make sub-headers or just ignore and list items. 
-            // For now, let's treat currentCategory as the main container. 
-            // Maybe we can append Linea to category name or just assume items belong to current Rubro.
-            // Let's stick to simple Rubro grouping first as requested.
-            return;
-        }
+        // Detect Product
+        // Rules: Code in col1 (alphanumeric), Description in col2, not a header
+        if (col1Str && col2Str && !col1Str.includes("--") && !col2Str.includes("--") &&
+            col1Str !== "Código" && !col1Str.startsWith("Fecha:")) {
 
-        // Ignore Headers
-        if (col1Str === "Código" || col1Str.startsWith("Fecha:") || col2Str.startsWith("Cliente:")) {
-            return;
-        }
-
-        // Identify Product
-        // Products usually have a Code (col1) and Description (col2)
-        // Also ensuring it's not a category line just in case (though covered above)
-        if (currentCategory && col1Str && col2Str && !col1Str.includes("--") && !col2Str.includes("--")) {
-            // Simple validation: Code usually looks like a number or alphanumeric string
-            // And Description is text.
-
-            // Price parsing with 45% margin
+            // Calculate Price
             const rawPrice = row["__EMPTY_3"] || row["__EMPTY_2"] || 0;
             const priceWithMargin = typeof rawPrice === 'number' ? rawPrice * 1.45 : 0;
 
-            const formattedPrice = priceWithMargin > 0
-                ? `$ ${priceWithMargin.toLocaleString('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`
-                : null;
+            if (priceWithMargin <= 0) return; // Skip invalid prices
 
-            currentCategory.items.push({
+            const formattedPrice = `$ ${priceWithMargin.toLocaleString('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+
+            const item = {
                 code: col1Str,
                 description: col2Str,
-                price: formattedPrice
-            });
+                price: formattedPrice,
+                rawPrice: priceWithMargin,
+                type: 'product'
+            };
+
+            // Map to Category
+            let targetCat = CATEGORIES.OTROS;
+
+            if (["SUPLEMENTOS", "DEPORTES", "VITAMINAS", "PROT"].some(k => currentRubro.includes(k))) targetCat = CATEGORIES.DEPORTES;
+            else if (["FRUTOS SECOS", "FRUTAS", "SEMILLAS"].some(k => currentRubro.includes(k))) targetCat = CATEGORIES.FRUTOS;
+            else if (["HARINAS", "REPOSTERIA", "PREMEZCLAS", "GALLETITAS"].some(k => currentRubro.includes(k))) targetCat = CATEGORIES.HARINAS;
+            else if (["HIERBAS", "TE", "YERBA", "MATE"].some(k => currentRubro.includes(k))) targetCat = CATEGORIES.HIERBAS;
+            else if (["ALIMENTOS", "ACEITES", "CONDIMENTOS", "LEGUMBRES", "CEREALES", "MIEL", "MERMELADAS", "BEBIDAS", "JUGOS", "COSMETICA"].some(k => currentRubro.includes(k))) targetCat = CATEGORIES.ALMACEN;
+            else targetCat = CATEGORIES.ALMACEN; // Aggressive fallback to Almacen for general groceries
+
+            targetCat.items.push(item);
         }
     });
 
-    // Filter out empty categories
-    const validCategories = categorizedProducts.filter(c => c.items.length > 0);
+    // 5. Final Array in Order
+    const finalCategories = [
+        CATEGORIES.KITS,
+        CATEGORIES.NUTRILITE,
+        CATEGORIES.DEPORTES,
+        CATEGORIES.FRUTOS,
+        CATEGORIES.ALMACEN,
+        CATEGORIES.HARINAS,
+        CATEGORIES.HIERBAS
+    ].filter(c => c.items.length > 0);
 
     return (
         <main className="min-h-screen bg-gray-50 py-8">
-            <ProductsClient categorizedProducts={validCategories} />
+            <ProductsClient categorizedProducts={finalCategories} />
         </main>
     );
 }

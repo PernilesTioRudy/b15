@@ -4,14 +4,13 @@ import React, { useState } from 'react';
 import styles from './products.module.css';
 import { useAuth } from '../../context/AuthContext';
 import { useCart } from '../../context/CartContext';
-import { Lock, ShoppingCart, Plus, Minus } from 'lucide-react';
+import { Lock, ShoppingCart, Plus, Minus, Search, Leaf } from 'lucide-react';
 
 export default function ProductsClient({ categorizedProducts }) {
     const [searchTerm, setSearchTerm] = useState('');
     const { user, openLogin } = useAuth();
     const { addToCart, updateQuantity, cartItems } = useCart();
 
-    // Helper to check cart status
     const getCartItem = (code) => cartItems.find(item => item.id === code);
 
     // Filter products
@@ -19,7 +18,7 @@ export default function ProductsClient({ categorizedProducts }) {
         ...category,
         items: category.items.filter(item =>
             item.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            item.code.toLowerCase().includes(searchTerm.toLowerCase())
+            (item.code && item.code.toLowerCase().includes(searchTerm.toLowerCase()))
         )
     })).filter(category => category.items.length > 0);
 
@@ -31,134 +30,124 @@ export default function ProductsClient({ categorizedProducts }) {
                 {user ? (
                     <div style={{ marginBottom: '1.5rem', padding: '1rem', backgroundColor: '#F0EAE4', borderRadius: '8px', color: '#3E2723', border: '1px solid #B59573' }}>
                         <strong>¡Hola {user.name}!</strong><br />
-                        Ya podés agregar productos a tu pedido.
+                        Explorá nuestras categorías y armá tu pedido.
                     </div>
                 ) : (
                     <div style={{ marginBottom: '1.5rem', color: '#3E2723', opacity: 0.8, fontSize: '0.9rem' }}>
-                        Inicia sesión para ver los precios y armar tu pedido.
+                        Inicia sesión para ver precios y comprar.
                     </div>
                 )}
 
-                <input
-                    type="text"
-                    placeholder="Buscar por nombre o código..."
-                    className={styles.searchInput}
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
+                <div className={styles.searchWrapper}>
+                    <Search className={styles.searchIcon} size={20} />
+                    <input
+                        type="text"
+                        placeholder="Buscar producto, marca o rubro..."
+                        className={styles.searchInput}
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                </div>
             </div>
 
             <div>
-                {filteredCategories.map((category, index) => (
-                    <div key={index} className={styles.categoryGroup}>
-                        <div className={styles.categoryHeader}>
-                            <h2 className={styles.categoryTitle}>
-                                {category.name}
-                            </h2>
-                        </div>
+                {filteredCategories.map((category, index) => {
+                    const isNutrilite = category.name.includes("Nutrilite");
+                    const isKits = category.name.includes("Kits");
 
-                        <div className={styles.tableContainer}>
-                            <table className={styles.table}>
-                                <thead>
-                                    <tr>
-                                        <th>Código</th>
-                                        <th>Descripción</th>
-                                        <th style={{ textAlign: 'right' }}>Precio / Acción</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {category.items.map((product, pIndex) => {
-                                        const cartItem = getCartItem(product.code);
-                                        // Parse price for cart logic (remove $ and points)
-                                        const priceValue = product.price
-                                            ? parseFloat(product.price.replace('$ ', '').replace(/\./g, ''))
-                                            : 0;
+                    return (
+                        <div key={index} className={styles.categoryGroup}>
+                            <div className={styles.categoryHeader}>
+                                <h2 className={styles.categoryTitle}>
+                                    {category.name}
+                                    {isNutrilite && (
+                                        <span style={{
+                                            marginLeft: '10px',
+                                            fontSize: '0.8rem',
+                                            backgroundColor: '#4CAF50',
+                                            color: 'white',
+                                            padding: '4px 8px',
+                                            borderRadius: '20px',
+                                            verticalAlign: 'middle',
+                                            fontWeight: 'normal',
+                                            display: 'inline-flex',
+                                            alignItems: 'center',
+                                            gap: '4px'
+                                        }}>
+                                            <Leaf size={12} /> Calidad Orgánica Certificada
+                                        </span>
+                                    )}
+                                </h2>
+                            </div>
 
-                                        return (
-                                            <tr key={pIndex} className={styles.row}>
-                                                <td className={styles.codeCell}>
-                                                    {product.code}
-                                                </td>
-                                                <td>
-                                                    {product.description}
-                                                </td>
-                                                <td style={{ textAlign: 'right', minWidth: '160px' }}>
+                            <div className={styles.gridContainer}>
+                                {category.items.map((product, pIndex) => {
+                                    const cartItem = getCartItem(product.code);
+
+                                    return (
+                                        <div key={pIndex} className={styles.card}>
+                                            {/* Image Placeholder */}
+                                            <div className={styles.imagePlaceholder}>
+                                                <span style={{ opacity: 0.3, fontSize: '2rem' }}>🌿</span>
+                                            </div>
+
+                                            <div className={styles.cardContent}>
+                                                <h3 className={styles.cardTitle}>{product.description}</h3>
+
+                                                {/* Specialized content for Nutrilite/Kits */}
+                                                {(isNutrilite || isKits) && product.details && (
+                                                    <p style={{ fontSize: '0.85rem', color: '#666', marginBottom: '0.5rem', lineHeight: '1.4' }}>
+                                                        {typeof product.details === 'string' ? product.details : product.details.profile}
+                                                    </p>
+                                                )}
+
+                                                <div className={styles.cardFooter}>
                                                     {user ? (
-                                                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.5rem' }}>
-                                                            <span style={{ fontWeight: 'bold', color: '#B59573', fontSize: '1.05rem' }}>
+                                                        <div className={styles.priceAction}>
+                                                            <div className={styles.priceTag}>
                                                                 {product.price || '-'}
-                                                            </span>
+                                                            </div>
 
-                                                            {priceValue > 0 && (
-                                                                cartItem ? (
-                                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', backgroundColor: '#F9F7F2', borderRadius: '4px', border: '1px solid #B59573' }}>
-                                                                        <button
-                                                                            onClick={() => updateQuantity(product.code, -1)}
-                                                                            style={{ padding: '4px 8px', borderRight: '1px solid #ddd', background: 'none', cursor: 'pointer', color: '#3E2723' }}
-                                                                        ><Minus size={14} /></button>
-                                                                        <span style={{ fontSize: '0.9rem', fontWeight: 'bold', minWidth: '20px', textAlign: 'center' }}>{cartItem.quantity}</span>
-                                                                        <button
-                                                                            onClick={() => updateQuantity(product.code, 1)}
-                                                                            style={{ padding: '4px 8px', borderLeft: '1px solid #ddd', background: 'none', cursor: 'pointer', color: '#3E2723' }}
-                                                                        ><Plus size={14} /></button>
-                                                                    </div>
-                                                                ) : (
-                                                                    <button
-                                                                        onClick={() => addToCart({
-                                                                            id: product.code,
-                                                                            name: product.description,
-                                                                            price: priceValue,
-                                                                            type: 'product'
-                                                                        })}
-                                                                        style={{
-                                                                            backgroundColor: '#B59573',
-                                                                            color: 'white',
-                                                                            border: 'none',
-                                                                            borderRadius: '4px',
-                                                                            padding: '0.4rem 0.8rem',
-                                                                            cursor: 'pointer',
-                                                                            fontSize: '0.85rem',
-                                                                            display: 'flex',
-                                                                            alignItems: 'center',
-                                                                            gap: '4px'
-                                                                        }}
-                                                                    >
-                                                                        <ShoppingCart size={14} />
-                                                                        Agregar
-                                                                    </button>
-                                                                )
+                                                            {cartItem ? (
+                                                                <div className={styles.qtyControl}>
+                                                                    <button onClick={() => updateQuantity(product.code, -1)}><Minus size={16} /></button>
+                                                                    <span>{cartItem.quantity}</span>
+                                                                    <button onClick={() => updateQuantity(product.code, 1)}><Plus size={16} /></button>
+                                                                </div>
+                                                            ) : (
+                                                                <button
+                                                                    onClick={() => addToCart({
+                                                                        id: product.code,
+                                                                        name: product.description,
+                                                                        price: product.rawPrice,
+                                                                        type: isKits ? 'kit' : 'product'
+                                                                    })}
+                                                                    className={styles.addButton}
+                                                                >
+                                                                    <ShoppingCart size={16} /> Agregar
+                                                                </button>
                                                             )}
                                                         </div>
                                                     ) : (
-                                                        <button
-                                                            className={styles.priceButton}
-                                                            onClick={openLogin}
-                                                            title="Ver precio"
-                                                        >
-                                                            <Lock size={14} style={{ display: 'inline', marginRight: '4px', verticalAlign: 'middle' }} />
-                                                            <span style={{ verticalAlign: 'middle' }}>Ver Precio</span>
+                                                        <button className={styles.lockButton} onClick={openLogin}>
+                                                            <Lock size={14} /> Ver Precio
                                                         </button>
                                                     )}
-                                                </td>
-                                            </tr>
-                                        );
-                                    })}
-                                </tbody>
-                            </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
 
                 {filteredCategories.length === 0 && (
                     <div className={styles.noResults}>
-                        <p>No se encontraron productos que coincidan con tu búsqueda.</p>
+                        <p>No se encontraron productos.</p>
                     </div>
                 )}
-            </div>
-
-            <div style={{ marginTop: '3rem', textAlign: 'center', color: '#3E2723', opacity: 0.8, fontSize: '0.9rem', padding: '1rem', borderTop: '1px solid #E0E0E0' }}>
-                <p>📦 Envíos a domicilio en Neuquén y Cipolletti ($10.000)</p>
-                <p style={{ fontWeight: 'bold', color: '#B59573' }}>⚡ Envío GRATIS en compras superiores a $200.000</p>
             </div>
         </div>
     );
